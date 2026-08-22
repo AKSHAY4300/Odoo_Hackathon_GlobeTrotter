@@ -59,7 +59,7 @@ export const TripBudgetPage: React.FC = () => {
     try {
       await tripsService.updateTrip(trip.id, { dailySpendThreshold: newVal });
       queryClient.setQueryData(['trip', id], { ...trip, dailySpendThreshold: newVal });
-      showToast('Threshold Saved', `Daily budget cap set to $${newVal}/day`, 'info');
+      showToast('Threshold Saved', `Daily budget cap set to ${formatCurrency(newVal)}/day`, 'info');
     } catch (err: any) {
       showToast('Error', err.message, 'error');
     }
@@ -96,14 +96,14 @@ export const TripBudgetPage: React.FC = () => {
               Adjust Daily Limit Cap
             </span>
             <div className="flex items-center gap-2 mt-1">
-              <span className="text-sm font-mono font-bold text-ink-navy">$</span>
+              <span className="text-sm font-sans font-bold text-ink-navy">₹</span>
               <input
                 type="number"
                 value={activeThreshold}
                 onChange={(e) => handleUpdateThreshold(Number(e.target.value))}
-                step={25}
-                min={50}
-                className="w-24 px-2 py-1 bg-white border border-tarmac-grey/30 rounded-text-xs font-mono font-bold text-ink-navy focus:outline-none focus:ring-1 focus:ring-boarding-amber"
+                step={500}
+                min={500}
+                className="w-28 px-2 py-1 bg-white border border-tarmac-grey/30 rounded-lg text-xs font-mono font-bold text-ink-navy focus:outline-none focus:ring-1 focus:ring-boarding-amber"
               />
               <span className="text-[11px] font-mono text-tarmac-grey">/ day</span>
             </div>
