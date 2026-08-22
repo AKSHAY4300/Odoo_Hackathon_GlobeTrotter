@@ -1,0 +1,408 @@
+[
+  {
+    "id": "trp-euro-2026",
+    "shareId": "eur-pass-84920",
+    "userId": "usr-alex-901",
+    "title": "Grand European Circuit",
+    "description": "A 9-day cultural pilgrimage threading Parisian art salons, Amsterdam canal rings, and ancient Roman arena ruins.",
+    "coverImageUrl": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=80",
+    "startDate": "2026-09-10",
+    "endDate": "2026-09-18",
+    "targetBudget": 3200,
+    "dailySpendThreshold": 350,
+    "status": "upcoming",
+    "isPublic": true,
+    "createdAt": "2026-06-01T10:00:00Z",
+    "updatedAt": "2026-08-15T14:30:00Z",
+    "stops": [
+      {
+        "id": "stp-paris-1",
+        "cityId": "city-paris",
+        "cityName": "Paris",
+        "country": "France",
+        "arrivalDate": "2026-09-10",
+        "departureDate": "2026-09-13",
+        "accommodationName": "Hôtel des Arts Montmartre",
+        "accommodationCostPerNight": 165,
+        "transportCostToStop": 0,
+        "transportMode": "flight",
+        "notes": "Metro Pass Navigo Easy purchased upon arrival at CDG Terminal 2E.",
+        "order": 0,
+        "activities": [
+          {
+            "id": "sact-101",
+            "activityId": "act-paris-louvre",
+            "title": "Louvre Masterpieces Guided Access",
+            "category": "culture",
+            "cost": 45,
+            "durationMinutes": 180,
+            "scheduledDate": "2026-09-11",
+            "startTime": "09:30",
+            "notes": "Meet guide at Pyramide du Louvre entrance, Group voucher #FR-7712",
+            "location": "Rue de Rivoli, 75001 Paris"
+          },
+          {
+            "id": "sact-102",
+            "activityId": "act-paris-cruise",
+            "title": "Seine River Champagne Dinner Cruise",
+            "category": "food",
+            "cost": 95,
+            "durationMinutes": 150,
+            "scheduledDate": "2026-09-11",
+            "startTime": "19:30",
+            "notes": "Smart casual dress code, Boarding Port de la Bourdonnais",
+            "location": "Port de la Bourdonnais, Paris"
+          },
+          {
+            "id": "sact-103",
+            "activityId": "act-paris-baking",
+            "title": "French Croissant & Baguette Workshop",
+            "category": "food",
+            "cost": 65,
+            "durationMinutes": 150,
+            "scheduledDate": "2026-09-12",
+            "startTime": "10:00",
+            "notes": "Hands-on boulangerie workshop",
+            "location": "Le Marais, Paris"
+          },
+          {
+            "id": "sact-104",
+            "activityId": "act-paris-eiffel",
+            "title": "Eiffel Tower Summit Twilight Access",
+            "category": "sightseeing",
+            "cost": 38,
+            "durationMinutes": 120,
+            "scheduledDate": "2026-09-12",
+            "startTime": "18:00",
+            "notes": "Arrive 20 mins prior at South Pillar",
+            "location": "Champ de Mars, 5 Av. Anatole France"
+          }
+        ]
+      },
+      {
+        "id": "stp-ams-2",
+        "cityId": "city-amsterdam",
+        "cityName": "Amsterdam",
+        "country": "Netherlands",
+        "arrivalDate": "2026-09-13",
+        "departureDate": "2026-09-15",
+        "accommodationName": "The Hoxton Herengracht",
+        "accommodationCostPerNight": 190,
+        "transportCostToStop": 95,
+        "transportMode": "train",
+        "notes": "Eurostar Train #9343 from Paris Gare du Nord to Amsterdam Centraal (3h 20m).",
+        "order": 1,
+        "activities": [
+          {
+            "id": "sact-201",
+            "activityId": "act-ams-canal",
+            "title": "Open-Boat Historical Canal Cruise with Drinks",
+            "category": "sightseeing",
+            "cost": 28,
+            "durationMinutes": 90,
+            "scheduledDate": "2026-09-13",
+            "startTime": "16:00",
+            "notes": "Boat departure outside Anne Frank House dock",
+            "location": "Prinsengracht 263, Amsterdam"
+          },
+          {
+            "id": "sact-202",
+            "activityId": "act-ams-rijks",
+            "title": "Rijksmuseum & Van Gogh Museum Dual Pass",
+            "category": "culture",
+            "cost": 48,
+            "durationMinutes": 240,
+            "scheduledDate": "2026-09-14",
+            "startTime": "10:00",
+            "notes": "Timed entry ticket for Van Gogh Museum at 14:00",
+            "location": "Museumstraat 1, 1071 XX Amsterdam"
+          }
+        ]
+      },
+      {
+        "id": "stp-rome-3",
+        "cityId": "city-rome",
+        "cityName": "Rome",
+        "country": "Italy",
+        "arrivalDate": "2026-09-15",
+        "departureDate": "2026-09-18",
+        "accommodationName": "Boutique Hotel Campo de' Fiori",
+        "accommodationCostPerNight": 150,
+        "transportCostToStop": 120,
+        "transportMode": "flight",
+        "notes": "KLM Flight KL1603 AMS to FCO. Express train Leonardo Express to Termini.",
+        "order": 2,
+        "activities": [
+          {
+            "id": "sact-301",
+            "activityId": "act-rome-colosseum",
+            "title": "Colosseum Arena Floor & Underground Dungeons",
+            "category": "culture",
+            "cost": 50,
+            "durationMinutes": 180,
+            "scheduledDate": "2026-09-16",
+            "startTime": "09:00",
+            "notes": "Strict security screening; bring original passport",
+            "location": "Piazza del Colosseo, 1, Roma"
+          },
+          {
+            "id": "sact-302",
+            "activityId": "act-rome-pasta",
+            "title": "Handmade Fettuccine & Tiramisu Masterclass",
+            "category": "food",
+            "cost": 70,
+            "durationMinutes": 180,
+            "scheduledDate": "2026-09-16",
+            "startTime": "17:00",
+            "notes": "Includes wine pairing and recipe booklet",
+            "location": "Trastevere, Piazza Santa Maria"
+          },
+          {
+            "id": "sact-303",
+            "activityId": "act-rome-vatican",
+            "title": "Vatican Museums & Sistine Chapel Early Access",
+            "category": "culture",
+            "cost": 60,
+            "durationMinutes": 210,
+            "scheduledDate": "2026-09-17",
+            "startTime": "08:30",
+            "notes": "Cover shoulders and knees for Basilica entrance",
+            "location": "Viale Vaticano, 00165 Roma"
+          },
+          {
+            "id": "sact-304",
+            "activityId": "act-rome-vespa",
+            "title": "Vintage Vespa Sidecar Sunset Tour",
+            "category": "adventure",
+            "cost": 110,
+            "durationMinutes": 180,
+            "scheduledDate": "2026-09-17",
+            "startTime": "18:00",
+            "notes": "Helmet provided, driver/guide operates the vintage Vespa",
+            "location": "Piazza Navona, Rome"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "trp-japan-2026",
+    "shareId": "jpn-pass-39104",
+    "userId": "usr-alex-901",
+    "title": "Japan Cultural Odyssey",
+    "description": "From electric Shinjuku neon & digital art installations to ancient meditative Kyoto bamboo forests and Torii shrines.",
+    "coverImageUrl": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=80",
+    "startDate": "2026-10-15",
+    "endDate": "2026-10-22",
+    "targetBudget": 2800,
+    "dailySpendThreshold": 320,
+    "status": "upcoming",
+    "isPublic": true,
+    "createdAt": "2026-07-10T12:00:00Z",
+    "updatedAt": "2026-08-18T09:15:00Z",
+    "stops": [
+      {
+        "id": "stp-tokyo-1",
+        "cityId": "city-tokyo",
+        "cityName": "Tokyo",
+        "country": "Japan",
+        "arrivalDate": "2026-10-15",
+        "departureDate": "2026-10-18",
+        "accommodationName": "Hotel Gracery Shinjuku",
+        "accommodationCostPerNight": 140,
+        "transportCostToStop": 0,
+        "transportMode": "flight",
+        "notes": "Narita Express to Shinjuku Station with JR Suica Pass IC Card.",
+        "order": 0,
+        "activities": [
+          {
+            "id": "sact-jp-1",
+            "activityId": "act-tokyo-teamlab",
+            "title": "teamLab Planets Immersive Digital Art",
+            "category": "culture",
+            "cost": 32,
+            "durationMinutes": 120,
+            "scheduledDate": "2026-10-16",
+            "startTime": "11:00",
+            "notes": "Short pants recommended for knee-deep water exhibit",
+            "location": "Toyosu, Koto City, Tokyo"
+          },
+          {
+            "id": "sact-jp-2",
+            "activityId": "act-tokyo-food",
+            "title": "Shibuya & Shinjuku Izakaya Food Trail",
+            "category": "food",
+            "cost": 55,
+            "durationMinutes": 180,
+            "scheduledDate": "2026-10-16",
+            "startTime": "18:30",
+            "notes": "Tasting tour including 4 dishes and craft sake",
+            "location": "Omoide Yokocho, Shinjuku"
+          },
+          {
+            "id": "sact-jp-3",
+            "activityId": "act-tokyo-kart",
+            "title": "Tokyo Street Go-Karting Tour",
+            "category": "adventure",
+            "cost": 75,
+            "durationMinutes": 120,
+            "scheduledDate": "2026-10-17",
+            "startTime": "14:00",
+            "notes": "Must present International Driving Permit (1949 convention)",
+            "location": "Shinagawa, Tokyo"
+          }
+        ]
+      },
+      {
+        "id": "stp-kyoto-2",
+        "cityId": "city-kyoto",
+        "cityName": "Kyoto",
+        "country": "Japan",
+        "arrivalDate": "2026-10-18",
+        "departureDate": "2026-10-22",
+        "accommodationName": "Kyoto Ryokan Gion Sano",
+        "accommodationCostPerNight": 180,
+        "transportCostToStop": 110,
+        "transportMode": "train",
+        "notes": "Shinkansen Nozomi Bullet Train from Tokyo Station to Kyoto Station (2h 15m).",
+        "order": 1,
+        "activities": [
+          {
+            "id": "sact-jp-4",
+            "activityId": "act-kyoto-fushimi",
+            "title": "Fushimi Inari Sunrise Hike & Secret Trails",
+            "category": "sightseeing",
+            "cost": 20,
+            "durationMinutes": 180,
+            "scheduledDate": "2026-10-19",
+            "startTime": "06:30",
+            "notes": "Early morning hike avoiding tourist crowds",
+            "location": "68 Fukakusa Yabunouchicho, Fushimi Ward, Kyoto"
+          },
+          {
+            "id": "sact-jp-5",
+            "activityId": "act-kyoto-tea",
+            "title": "Authentic Zen Tea Ceremony in Gion",
+            "category": "culture",
+            "cost": 40,
+            "durationMinutes": 90,
+            "scheduledDate": "2026-10-19",
+            "startTime": "14:30",
+            "notes": "Matcha preparation with traditional sweets",
+            "location": "Gion, Higashiyama Ward, Kyoto"
+          },
+          {
+            "id": "sact-jp-6",
+            "activityId": "act-kyoto-bamboo",
+            "title": "Arashiyama Bamboo Grove & Tenryu-ji Temple",
+            "category": "relaxation",
+            "cost": 25,
+            "durationMinutes": 150,
+            "scheduledDate": "2026-10-20",
+            "startTime": "09:00",
+            "notes": "Explore bamboo walkway and Sagano romantic train",
+            "location": "Arashiyama, Ukyo Ward, Kyoto"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "trp-calif-2026",
+    "shareId": "cal-pass-19842",
+    "userId": "usr-alex-901",
+    "title": "California Coastline Highway 1",
+    "description": "Pacific breeze road trip from San Francisco's Golden Gate down to Los Angeles' sun-drenched beaches and Hollywood hills.",
+    "coverImageUrl": "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1200&q=80",
+    "startDate": "2026-11-05",
+    "endDate": "2026-11-10",
+    "targetBudget": 2200,
+    "dailySpendThreshold": 300,
+    "status": "upcoming",
+    "isPublic": true,
+    "createdAt": "2026-08-01T15:00:00Z",
+    "updatedAt": "2026-08-20T11:00:00Z",
+    "stops": [
+      {
+        "id": "stp-sf-1",
+        "cityId": "city-san-francisco",
+        "cityName": "San Francisco",
+        "country": "United States",
+        "arrivalDate": "2026-11-05",
+        "departureDate": "2026-11-07",
+        "accommodationName": "Hotel Emblem San Francisco",
+        "accommodationCostPerNight": 175,
+        "transportCostToStop": 0,
+        "transportMode": "flight",
+        "notes": "Convertible rental car pickup at SFO Airport.",
+        "order": 0,
+        "activities": [
+          {
+            "id": "sact-ca-1",
+            "activityId": "act-sf-bridge",
+            "title": "Golden Gate Bridge Electric Bike to Sausalito",
+            "category": "adventure",
+            "cost": 45,
+            "durationMinutes": 210,
+            "scheduledDate": "2026-11-06",
+            "startTime": "10:00",
+            "notes": "Includes ferry ticket back from Sausalito to Fisherman's Wharf",
+            "location": "Fisherman's Wharf, San Francisco"
+          },
+          {
+            "id": "sact-ca-2",
+            "activityId": "act-sf-alcatraz",
+            "title": "Alcatraz Island Day Tour & Cellhouse Audio",
+            "category": "culture",
+            "cost": 45,
+            "durationMinutes": 180,
+            "scheduledDate": "2026-11-06",
+            "startTime": "15:00",
+            "notes": "Pier 33 Alcatraz Landing departure",
+            "location": "Pier 33, The Embarcadero, San Francisco"
+          }
+        ]
+      },
+      {
+        "id": "stp-la-2",
+        "cityId": "city-los-angeles",
+        "cityName": "Los Angeles",
+        "country": "United States",
+        "arrivalDate": "2026-11-07",
+        "departureDate": "2026-11-10",
+        "accommodationName": "The Kinney Venice Beach",
+        "accommodationCostPerNight": 160,
+        "transportCostToStop": 65,
+        "transportMode": "car",
+        "notes": "Scenic Pacific Coast Highway drive through Big Sur and Malibu.",
+        "order": 1,
+        "activities": [
+          {
+            "id": "sact-ca-3",
+            "activityId": "act-la-observatory",
+            "title": "Griffith Observatory & Hollywood Sign Sunset Hike",
+            "category": "sightseeing",
+            "cost": 25,
+            "durationMinutes": 150,
+            "scheduledDate": "2026-11-08",
+            "startTime": "16:30",
+            "notes": "Water bottle and sturdy shoes required",
+            "location": "2800 E Observatory Rd, Los Angeles"
+          },
+          {
+            "id": "sact-ca-4",
+            "activityId": "act-la-getty",
+            "title": "The Getty Center Modern Art & Cactus Gardens",
+            "category": "culture",
+            "cost": 15,
+            "durationMinutes": 180,
+            "scheduledDate": "2026-11-09",
+            "startTime": "11:00",
+            "notes": "Includes funicular tram ride from lower parking",
+            "location": "1200 Getty Center Dr, Los Angeles"
+          }
+        ]
+      }
+    ]
+  }
+]

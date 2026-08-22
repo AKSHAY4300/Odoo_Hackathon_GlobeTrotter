@@ -1,0 +1,26 @@
+[
+  {
+    "id": "usr-alex-901",
+    "name": "Alex Mercer",
+    "email": "alex@globetrotter.io",
+    "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+    "role": "traveler",
+    "preferredCurrency": "USD",
+    "language": "English (US)",
+    "bio": "Avid explorer, architecture lover, and espresso seeker. 18 countries stamped, planning my next circuit.",
+    "savedCityIds": ["city-paris", "city-tokyo", "city-amsterdam", "city-cape-town"],
+    "createdAt": "2026-01-15T08:00:00Z"
+  },
+  {
+    "id": "usr-admin-001",
+    "name": "Morgan Vance (Platform Admin)",
+    "email": "admin@globetrotter.io",
+    "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+    "role": "admin",
+    "preferredCurrency": "USD",
+    "language": "English (US)",
+    "bio": "GlobeTrotter Flight Ops & Chief Route Architect.",
+    "savedCityIds": ["city-tokyo", "city-kyoto", "city-singapore", "city-sydney"],
+    "createdAt": "2025-10-01T08:00:00Z"
+  }
+]
