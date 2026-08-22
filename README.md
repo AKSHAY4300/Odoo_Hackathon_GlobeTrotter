@@ -1,124 +1,127 @@
 # ✈️ GlobeTrotter — Smart Multi-City Travel Planning Platform
 
-GlobeTrotter is a full-featured, multi-city trip planning platform and travel concierge designed to help travelers effortlessly map complex itineraries, organize activities across destinations, track live budgets, and share read-only digital boarding passes with friends and family.
+GlobeTrotter is an intuitive, all-in-one travel planning concierge designed to take the stress out of building multi-city journeys. Whether organizing a week-long road trip across Rajasthan, navigating the backwaters of Kerala, or coordinating an outbound journey across Southeast Asia, GlobeTrotter brings every flight, hotel stay, guided tour, and budget breakdown together into a clean, digital boarding pass.
 
-Crafted around an authentic travel-document visual language (boarding passes, departure boards, and dashed flight routes), the platform provides a clean, responsive, and tactile planning experience on any device.
+Designed with an authentic travel-document aesthetic—complete with ticket notch cutouts, departure boards, and dashed flight route maps—the application offers a tactile and responsive planning experience on mobile, tablet, and desktop screens alike.
 
 ---
 
-## 🌟 Key Highlights & Features
+## 🌟 What’s Inside the Platform
 
-### 1. Dynamic Itinerary Builder & Flight Sequencing
-- **Multi-City Route Mapping**: Seamlessly connect consecutive destinations with arrival/departure dates, lodging details, and transit modes (flights, trains, cabs, ferries).
-- **Interactive Drag-and-Drop Reordering**: Easily adjust stop sequences or daily activity timelines with smooth, accessible drag-and-drop mechanics.
-- **Visual Route Connectors**: Dashed flight lines and destination badges provide a clear visual overview of your entire route.
+### 🗺️ Dynamic Multi-City Route Builder
+- **Flexible City Connections**: Add destinations in sequence, specify arrival and departure dates, record hotel stays, and choose transit modes such as flights, express trains, rental cabs, or ferries.
+- **Drag-and-Drop Itinerary Organization**: Reorder stops on the fly or rearrange activities within daily schedules using smooth and accessible drag-and-drop interactions.
+- **Visual Flight Path Dividers**: Interactive route connectors give travelers a quick, comprehensive view of their entire trip itinerary at a single glance.
 
-### 2. Live Dynamic Backend & Local Database Setup
-- **RESTful API Engine**: Powered by Node.js, Express, and Mongoose for complete, real-time data persistence.
-- **Relational Data Modeling**: Structured schemas for users, trips, stops, destination cities, curated activities, and daily schedules.
-- **Zero-Cloud Local Resilience**: Automatically initializes an embedded local database instance on launch with automatic seed data, allowing the entire application to run seamlessly offline or in air-gapped local environments.
+### ⚡ Full-Stack REST Architecture & Local Database Setup
+- **Live RESTful API**: Built with Node.js, Express, and Mongoose, providing persistent data management for trips, stops, activities, and user profiles.
+- **Zero-Configuration Local Database**: Automatically initializes an embedded local database instance upon startup with pre-seeded travel routes, allowing the application to run completely self-contained with no external cloud accounts or internet database setups required.
+- **Relational Data Integrity**: Clean schemas and foreign key associations connecting users, multi-stop itineraries, and catalogued experiences.
 
-### 3. Smart Budget & Financial Analytics Engine
-- **Automated Cost Aggregation**: Automatically calculates total expenditures across lodging, transit, and curated activities in real time.
-- **Interactive Visualizations**: Categorical expenditure breakdown (donut chart) and day-by-day spend distribution (bar chart).
-- **Threshold Alerts**: Set target budget limits and daily spend ceilings with visual indicators to keep trips on track.
-- **Indian Rupee (₹) & Global Currency Support**: Native support for Indian Rupee formatting (`₹`) with Indian number notation, alongside user-selectable global currencies.
+### 💰 Live Expense Tracking & Financial Analytics
+- **Real-Time Cost Calculations**: As you add lodging, transit fares, and activity tickets, the budget engine calculates total estimated costs dynamically.
+- **Visual Expense Breakdown**: Interactive donut charts for categorical allocations (lodging, transit, activities) and bar charts for day-by-day spending patterns.
+- **Daily Budget Ceiling Alerts**: Set daily spending thresholds to receive helpful visual warnings if planned activities exceed your daily allowance.
+- **Full Indian Rupee (₹) & Global Currency Support**: Native formatting in Indian Rupees (`₹`) with Indian number grouping, alongside options to switch preferred currencies.
 
-### 4. Offline Capability & Travel Document Export
-- **Smart Local Storage Caching**: Automatically saves fetched itineraries locally so you can review your trip plans mid-flight or in areas with spotty Wi-Fi.
-- **Network Status Awareness**: Gently notifies travelers when working in offline mode without disrupting the user experience.
-- **Printable & PDF Boarding Passes**: One-click print-ready boarding pass view designed for physical paper printouts and mobile PDF saves.
+### 📴 Offline Resilience & Mid-Flight Mode
+- **Intelligent Local Caching**: Automatically saves viewed itineraries to browser local storage so you can reference your plans while on airplanes or in areas with limited mobile data.
+- **Offline Status Notifications**: A subtle status banner appears when connectivity drops, reassuring travelers that their cached itineraries remain fully accessible.
+- **Printable Boarding Passes & PDF Export**: A dedicated print view optimized for clean physical printouts and PDF downloads to keep a hard copy in your carry-on bag.
 
-### 5. Public Sharing & Expedition Cloning
-- **Unique Shareable Travel Passes**: Generate read-only public URLs that anyone can view without creating an account.
-- **One-Click Itinerary Cloning**: Fellow travelers can duplicate any shared public pass directly into their own account to customize and make it their own.
+### 🤝 Shareable Public Passes & Itinerary Cloning
+- **Read-Only Public URLs**: Generate clean public links that friends or family can open without needing to register or log in.
+- **One-Click Trip Cloning**: Fellow travelers can duplicate any shared public itinerary directly into their personal account to customize for their own travels.
 
-### 6. Curated Indian & Global Destinations
-- **Domestic Indian Circuits**: Pre-loaded with iconic itineraries such as the *Royal Rajasthan & Golden Triangle Circuit* (Delhi, Agra, Jaipur, Udaipur) and *God's Own Country Kerala Odyssey* (Kochi, Munnar, Alleppey).
-- **International Outbound Routes**: Popular outbound destinations from India including Bangkok, Singapore, Bali, Dubai, Paris, and London.
-- **Authentic Local Activities**: Includes sunrise Taj Mahal visits, high-altitude Munnar tea estate treks, Alleppey backwater houseboats with traditional Sadya, and desert safaris.
+### 🇮🇳 Curated Indian & Outbound Global Itineraries
+- **Pre-Loaded Domestic Circuits**:
+  - *Royal Rajasthan & Golden Triangle* (Delhi ➔ Agra ➔ Jaipur ➔ Udaipur)
+  - *God's Own Country Kerala Odyssey* (Kochi ➔ Munnar ➔ Alleppey)
+- **Popular Outbound Travel Routes**: Multi-destination itineraries connecting Indian departures with Bangkok, Singapore, Bali, Dubai, Paris, and London.
+- **Authentic Local Activities**: Curated experiences including Taj Mahal sunrise tours, Old Delhi culinary walks, high-altitude Munnar tea plantation safaris, Alleppey private houseboats with traditional Kerala Sadya, and desert safaris.
 
-### 7. Intuitive Navigation & Robust Data Validation
-- **Modern Responsive Design**: Built with a curated, friendly font stack (**Plus Jakarta Sans** and **Inter**) and an aviation-themed color palette.
-- **Comprehensive Form Validation**: Frontend validation powered by Zod and React Hook Form ensures accurate date ordering, valid financial values, and proper credentials, paired with backend request validation.
+### 🎨 Clean Typography, Responsive UI & Robust Validation
+- **Friendly, Readable Fonts**: Styled with modern typography using **Plus Jakarta Sans** for headers and **Inter** for clean readability across all screen sizes.
+- **Thoughtful Color Hierarchy**: Grounded in an aviation theme featuring deep navy, warm boarding amber, signal teal, and soft parchment canvas.
+- **Airtight Input Validation**: Frontend validation powered by Zod and React Hook Form enforces date consistency, positive budget ceilings, and complete form inputs before saving.
 
 ---
 
 ## 🛠️ Technology Stack
 
-- **Frontend**: React 18, TypeScript, Vite, TailwindCSS, Zustand (client state), TanStack Query (server state & caching), Recharts (financial charts), dnd-kit (drag-and-drop), date-fns (date formatting).
-- **Backend**: Node.js, Express, MongoDB with Mongoose 8, JSON Web Tokens (JWT), Bcrypt password hashing, MongoMemoryServer (local database fallback).
-- **Architecture**: Decoupled client-server architecture with shared data contracts and RESTful API endpoints.
+- **Frontend**: React 18, TypeScript, Vite, TailwindCSS, Zustand (client session & drawer state), TanStack Query (server state & background synchronization), Recharts (interactive financial charts), dnd-kit (accessible drag-and-drop), date-fns (date formatting and calculations).
+- **Backend**: Node.js, Express, MongoDB with Mongoose 8, JSON Web Tokens (JWT), Bcrypt (secure password hashing), MongoMemoryServer (embedded database fallback).
+- **Tooling**: Non-destructive mock fallback layer, automated test suite runner, and Vite production bundler.
 
 ---
 
-## 📁 Project Structure
+## 📁 Project Architecture
 
 ```
 GlobeTrotter/
-├── frontend/                     # React 18 + TypeScript + Vite Client Application
+├── frontend/                     # React 18 + TypeScript + Vite Client
 │   ├── src/
-│   │   ├── app/                  # Application routing, layout wrappers, and providers
-│   │   ├── components/           # UI primitives (Buttons, Cards, Modals, Drawers)
+│   │   ├── app/                  # Routing system, layout wrappers, and context providers
+│   │   ├── components/           # UI elements (Buttons, Cards, Modals, Drawers, DashedRoute)
 │   │   │   └── trip/             # Domain components (TicketCard, ActivityChip, BudgetChart)
-│   │   ├── pages/                # Screen views (Dashboard, Builder, Budget, Calendar, Explore, Admin)
-│   │   ├── services/             # HTTP REST API client with offline storage caching
-│   │   ├── stores/               # State management (auth session, trip draft, UI drawers)
-│   │   └── lib/                  # Validation schemas, currency helpers, offline hook
-│   └── tailwind.config.js        # Theme tokens and font configuration
+│   │   ├── pages/                # Screens (Dashboard, Builder, Budget, Calendar, Explore, Admin)
+│   │   ├── services/             # REST API client with intelligent offline storage caching
+│   │   ├── stores/               # State stores (auth session, active trip draft, UI drawers)
+│   │   └── lib/                  # Zod validation schemas, currency formatting, offline hook
+│   └── tailwind.config.js        # Design system tokens and typography settings
 │
 └── backend/                      # Node.js + Express REST API Server
     ├── src/
-    │   ├── models/               # Mongoose data models (User, Trip, Stop, City, Activity)
-    │   ├── routes/               # API endpoint routers
-    │   ├── controllers/          # Business logic handlers and request processing
-    │   ├── services/             # Budget computation engine and sharing utilities
-    │   ├── middleware/           # JWT authentication and payload validation
-    │   ├── config/               # Database connection and environment configuration
-    │   └── seed/                 # Pre-loaded Indian & international travel datasets
-    ├── tests/                    # Integration test suite (28 automated assertions)
-    └── server.js                 # Server entry point with dynamic port allocation
+    │   ├── models/               # Mongoose schemas (User, Trip, Stop, City, Activity)
+    │   ├── routes/               # API endpoints for auth, trips, cities, public shares, and admin
+    │   ├── controllers/          # Request handlers and response formatters
+    │   ├── services/             # Financial calculation engine and public pass generator
+    │   ├── middleware/           # JWT auth verify, admin guards, and input validation
+    │   ├── config/               # Database connection logic with embedded fallback
+    │   └── seed/                 # Pre-loaded Indian & outbound international travel data
+    ├── tests/                    # 28-assertion automated integration test suite
+    └── server.js                 # Express server entry point
 ```
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Quick Launch Guide
 
 ### Prerequisites
-- **Node.js**: Version 18.0.0 or higher
-- **npm**: Version 9.0.0 or higher
+- **Node.js** (v18 or higher)
+- **npm** (v9 or higher)
 
-### 1. Launch the Backend API
+### Step 1: Start the Backend Server
 ```bash
 cd backend
 npm install
 npm start
 ```
-> The backend server will automatically connect to its local database, seed the initial travel routes and destination data, and start on `http://localhost:5000`.
+> The backend server connects to its local database, seeds the destination catalog and sample itineraries, and begins listening on `http://localhost:5000`.
 
-### 2. Launch the Frontend Client
-In a separate terminal window:
+### Step 2: Start the Frontend Application
+In a separate terminal:
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
-> Open your browser and navigate to **`http://localhost:5173`** to access the GlobeTrotter portal.
+> Open your browser and navigate to **`http://localhost:5173`** to access the GlobeTrotter platform.
 
 ---
 
-## 👤 Sample Demonstration Accounts
+## 👤 Sample Login Accounts
 
-For convenience during evaluation, pre-configured accounts are ready to use (or you can use the instant one-click login buttons on the sign-in page):
+For quick demonstration and evaluation, the following pre-configured accounts are ready for use (or use the one-click demo login buttons on the sign-in screen):
 
-| Role | Email | Password | Access Level |
+| Profile | Email | Password | Access Level |
 |---|---|---|---|
-| **Traveler** | `alex@globetrotter.io` | `password123` | Full access to create, edit, customize, budget, and share personal itineraries. |
-| **Administrator** | `admin@globetrotter.io` | `password123` | Access to the administrative dashboard, telemetry metrics, and platform data. |
+| **Traveler** | `alex@globetrotter.io` | `password123` | Create, customize, sequence, budget, and share personal voyages. |
+| **Administrator** | `admin@globetrotter.io` | `password123` | View live platform telemetry, total chartered trips, and destination trends. |
 
 ---
 
-## 🧪 Testing & Build Verification
+## 🧪 Quality Assurance & Test Verification
 
 ### Backend Automated Test Suite
 To run the automated integration test suite:
@@ -126,17 +129,17 @@ To run the automated integration test suite:
 cd backend
 npm test
 ```
-*Executes 28 comprehensive test assertions covering authentication, CRUD operations, budget calculation accuracy, public pass security isolation, and administrative role guards.*
+*Runs 28 automated test assertions verifying user authentication, data isolation, budget calculations, public share cloning, and administrative access controls.*
 
 ### Frontend Production Build
-To verify type safety and build the optimized production bundle:
+To verify type safety and build the optimized production distribution:
 ```bash
 cd frontend
 npm run build
 ```
-*Transpiles and bundles all assets with zero TypeScript or linting errors.*
+*Transpiles and validates all components with zero TypeScript or compilation errors.*
 
 ---
 
-## 📜 License & Acknowledgments
-Designed and built for the hackathon competition. All rights reserved.
+## 📜 License
+Designed and developed for the hackathon competition. All rights reserved.
