@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { DollarSign, AlertTriangle, ArrowUpRight } from 'lucide-react';
+import { Wallet, AlertTriangle, ArrowUpRight } from 'lucide-react';
 import { Trip } from '../../lib/types';
 import { budgetService } from '../../services/budget';
 import { formatCurrency } from '../../lib/currencyUtils';
@@ -20,7 +20,7 @@ export const TripCostSummary: React.FC<TripCostSummaryProps> = ({ trip, classNam
     <div className={`bg-ink-navy text-runway-white p-4 rounded-xl shadow-md border border-ink-navy-700 ${className}`}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <DollarSign className="w-4 h-4 text-boarding-amber" />
+          <Wallet className="w-4 h-4 text-boarding-amber" />
           <span className="text-xs font-mono uppercase tracking-wider text-tarmac-grey-300">
             Trip Budget Live Tracker
           </span>
@@ -61,7 +61,7 @@ export const TripCostSummary: React.FC<TripCostSummaryProps> = ({ trip, classNam
       {overBudgetDays.length > 0 && (
         <div className="mt-2.5 flex items-center gap-1.5 text-[11px] text-stamp-red font-mono bg-stamp-red/10 px-2 py-1 rounded border border-stamp-red/30">
           <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
-          <span>{overBudgetDays.length} day(s) exceed daily cap (${trip.dailySpendThreshold})</span>
+          <span>{overBudgetDays.length} day(s) exceed daily cap ({formatCurrency(trip.dailySpendThreshold)})</span>
         </div>
       )}
     </div>

@@ -404,5 +404,121 @@
         ]
       }
     ]
+  },
+  {
+    "id": "trp-goa-2026",
+    "shareId": "goa-pass-43918",
+    "userId": "usr-alex-901",
+    "title": "Goa Coastal Sun & Heritage Escape",
+    "description": "A 5-day sun-soaked coastal journey exploring North Goa's historic Portuguese Latin Quarter, Fort Aguada, and Grand Island catamaran scuba diving.",
+    "coverImageUrl": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=80",
+    "startDate": "2026-11-25",
+    "endDate": "2026-11-30",
+    "targetBudget": 38000,
+    "dailySpendThreshold": 7500,
+    "status": "upcoming",
+    "isPublic": true,
+    "createdAt": "2026-08-10T10:00:00Z",
+    "updatedAt": "2026-08-21T12:00:00Z",
+    "stops": [
+      {
+        "id": "stp-goa-1",
+        "cityId": "city-goa",
+        "cityName": "Goa (North & South)",
+        "country": "India",
+        "arrivalDate": "2026-11-25",
+        "departureDate": "2026-11-30",
+        "accommodationName": "Taj Holiday Village Resort & Spa",
+        "accommodationCostPerNight": 5800,
+        "transportCostToStop": 3500,
+        "transportMode": "flight",
+        "notes": "Direct flight Mumbai (BOM) to Goa Mopa (GOX). Self-drive rental thar booked.",
+        "order": 0,
+        "activities": [
+          {
+            "id": "sact-goa-1",
+            "activityId": "act-goa-scuba",
+            "title": "Grand Island Scuba Diving & Catamaran Cruise",
+            "category": "adventure",
+            "cost": 3500,
+            "durationMinutes": 360,
+            "scheduledDate": "2026-11-26",
+            "startTime": "08:00",
+            "notes": "Includes PADI instructor guided dive, underwater video, and BBQ lunch.",
+            "location": "Sinquerim Jetty, Candolim, Goa"
+          },
+          {
+            "id": "sact-goa-2",
+            "activityId": "act-goa-latin",
+            "title": "Fontainhas Latin Quarter Heritage & Bakery Walk",
+            "category": "culture",
+            "cost": 900,
+            "durationMinutes": 150,
+            "scheduledDate": "2026-11-27",
+            "startTime": "16:30",
+            "notes": "Portuguese architecture photo walk and traditional Bebinca tasting.",
+            "location": "Fontainhas, Panaji, Goa"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "trp-ladakh-2026",
+    "shareId": "ldk-pass-68210",
+    "userId": "usr-alex-901",
+    "title": "Himalayan Ladakh High-Altitude Expedition",
+    "description": "A breathtaking 7-day mountain circuit featuring ancient Tibetan gompas in Leh, crossing Khardung La Pass, and stargazing at Pangong Tso Lake.",
+    "coverImageUrl": "https://images.unsplash.com/photo-1581793745862-99fde7fa73d2?auto=format&fit=crop&w=1200&q=80",
+    "startDate": "2026-09-15",
+    "endDate": "2026-09-22",
+    "targetBudget": 56000,
+    "dailySpendThreshold": 8000,
+    "status": "upcoming",
+    "isPublic": true,
+    "createdAt": "2026-08-12T14:00:00Z",
+    "updatedAt": "2026-08-22T08:00:00Z",
+    "stops": [
+      {
+        "id": "stp-leh-1",
+        "cityId": "city-ladakh",
+        "cityName": "Leh Ladakh",
+        "country": "India",
+        "arrivalDate": "2026-09-15",
+        "departureDate": "2026-09-22",
+        "accommodationName": "The Grand Dragon Ladakh",
+        "accommodationCostPerNight": 5200,
+        "transportCostToStop": 6500,
+        "transportMode": "flight",
+        "notes": "Direct flight Delhi (DEL) to Kushok Bakula Rimpochee Airport (IXL). Complete rest Day 1 for acclimatization.",
+        "order": 0,
+        "activities": [
+          {
+            "id": "sact-ldk-1",
+            "activityId": "act-ladakh-pangong",
+            "title": "Pangong Tso Glamping & Milky Way Stargazing",
+            "category": "adventure",
+            "cost": 4500,
+            "durationMinutes": 480,
+            "scheduledDate": "2026-09-17",
+            "startTime": "07:30",
+            "notes": "Scenic drive via Chang La Pass (17,688 ft). Luxury heated Swiss tent stay.",
+            "location": "Pangong Lake, Spangmik, Ladakh"
+          },
+          {
+            "id": "sact-ldk-2",
+            "activityId": "act-ladakh-shanti",
+            "title": "Shanti Stupa Sunrise & Thiksey Monastery Puja",
+            "category": "culture",
+            "cost": 1200,
+            "durationMinutes": 180,
+            "scheduledDate": "2026-09-18",
+            "startTime": "06:00",
+            "notes": "Witness early morning Buddhist monk chanting ceremony at Thiksey.",
+            "location": "Shanti Stupa, Chubi, Leh, Ladakh"
+          }
+        ]
+      }
+    ]
   }
 ]

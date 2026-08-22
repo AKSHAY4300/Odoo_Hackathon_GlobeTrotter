@@ -1,5 +1,6 @@
 const Trip = require('../models/Trip');
 const Stop = require('../models/Stop');
+const City = require('../models/City');
 const ItineraryItem = require('../models/ItineraryItem');
 const { getPopulatedTrip } = require('../services/trip.service');
 const { generateShareId } = require('../services/share.service');
@@ -86,11 +87,32 @@ const tripController = {
       if (Array.isArray(stops) && stops.length > 0) {
         for (let i = 0; i < stops.length; i++) {
           const s = stops[i];
+          let resolvedCityId = s.cityId;
+          let resolvedCityName = s.cityName;
+          let resolvedCountry = s.country;
+
+          if (s.cityId) {
+            let city = null;
+            try {
+              city = await City.findById(s.cityId);
+            } catch {
+              city = await City.findOne({ customId: s.cityId });
+            }
+            if (!city) {
+              city = await City.findOne({ customId: s.cityId });
+            }
+            if (city) {
+              resolvedCityId = city._id;
+              resolvedCityName = resolvedCityName || city.name;
+              resolvedCountry = resolvedCountry || city.country;
+            }
+          }
+
           const newStop = new Stop({
             tripId: trip._id,
-            cityId: s.cityId,
-            cityName: s.cityName,
-            country: s.country,
+            cityId: resolvedCityId,
+            cityName: resolvedCityName || 'City Stop',
+            country: resolvedCountry || '',
             order: s.order !== undefined ? s.order : i,
             arrivalDate: s.arrivalDate || startDate,
             departureDate: s.departureDate || endDate,

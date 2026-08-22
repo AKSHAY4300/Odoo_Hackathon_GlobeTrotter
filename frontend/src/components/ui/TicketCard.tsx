@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { 
   Calendar, 
   MapPin, 
-  DollarSign, 
+  Wallet, 
   ArrowRight, 
   MoreVertical, 
   Share2, 
@@ -160,8 +160,8 @@ export const TicketCard: React.FC<TicketCardProps> = ({ trip, onDelete }) => {
 
             <div>
               <span className="text-[10px] font-mono uppercase text-tarmac-grey block">Target Budget</span>
-              <div className="flex items-center gap-1 text-xs font-mono font-bold text-signal-teal mt-0.5">
-                <DollarSign className="w-3.5 h-3.5 shrink-0" />
+              <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-signal-teal mt-0.5">
+                <Wallet className="w-3.5 h-3.5 shrink-0" />
                 <span>{formatCurrency(trip.targetBudget)}</span>
               </div>
             </div>
