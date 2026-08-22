@@ -4,8 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { 
   Plus, 
   ArrowRight, 
-  Compass,
-  Sparkles
+  Compass
 } from 'lucide-react';
 import { tripsService } from '../../services/trips';
 import { citiesService } from '../../services/cities';
@@ -121,10 +120,10 @@ export const DashboardPage: React.FC = () => {
           </div>
 
           <div className="bg-white/5 p-3.5 rounded-2xl border border-white/10">
-            <span className="text-[10px] font-mono uppercase text-tarmac-grey-300 block">Platform Architect</span>
-            <span className="text-xs font-mono font-bold text-boarding-amber mt-1.5 flex items-center gap-1">
-              <span>By Akshay</span>
-              <Sparkles className="w-3 h-3 text-boarding-amber" />
+            <span className="text-[10px] font-mono uppercase text-tarmac-grey-300 block">Traveler Status</span>
+            <span className="text-sm font-mono font-bold text-white uppercase mt-1.5 flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-signal-teal animate-pulse" />
+              Verified Explorer
             </span>
           </div>
         </div>

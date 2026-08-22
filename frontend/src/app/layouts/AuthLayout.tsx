@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
-import { Compass, ShieldCheck, Sparkles, Heart } from 'lucide-react';
+import { Compass, ShieldCheck, Sparkles } from 'lucide-react';
 
 export const AuthLayout: React.FC = () => {
   return (
@@ -33,7 +33,7 @@ export const AuthLayout: React.FC = () => {
             <div className="absolute -left-16 -top-16 w-64 h-64 bg-signal-teal/10 rounded-full blur-3xl" />
 
             <div className="relative z-10 space-y-4">
-              <div className="inline-flex items-center gap-1.5 bg-ink-navy-900 border border-white/10 px-3 py-1 rounded text-xs font-mono text-boarding-amber">
+              <div className="inline-flex items-center gap-1.5 bg-ink-navy-900 border border-white/10 px-3 py-1 rounded-full text-xs font-sans text-boarding-amber">
                 <Compass className="w-3.5 h-3.5 animate-spin" />
                 <span>EXPEDITION TERMINAL</span>
               </div>
@@ -47,7 +47,7 @@ export const AuthLayout: React.FC = () => {
               </p>
             </div>
 
-            <div className="relative z-10 mt-8 pt-6 border-t border-white/10 space-y-3 text-xs text-tarmac-grey-300 font-mono">
+            <div className="relative z-10 mt-8 pt-6 border-t border-white/10 space-y-3 text-xs text-tarmac-grey-300 font-sans">
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-signal-teal shrink-0" />
                 <span>Instant passport check-in</span>
@@ -65,13 +65,9 @@ export const AuthLayout: React.FC = () => {
           </div>
         </div>
 
-        {/* Developer Branding Footer */}
-        <div className="text-center pt-2 text-xs font-mono text-tarmac-grey flex items-center justify-center gap-1.5">
-          <span>GlobeTrotter Platform</span>
-          <span>•</span>
-          <span className="flex items-center gap-1">
-            Built with <Heart className="w-3 h-3 text-stamp-red fill-stamp-red" /> by <strong className="text-ink-navy">Akshay</strong>
-          </span>
+        {/* Clean Footer */}
+        <div className="text-center pt-2 text-xs font-sans text-tarmac-grey">
+          <span>© {new Date().getFullYear()} GlobeTrotter Platform. All rights reserved.</span>
         </div>
       </div>
     </div>

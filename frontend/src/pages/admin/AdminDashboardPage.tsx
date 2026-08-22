@@ -196,9 +196,6 @@ export const AdminDashboardPage: React.FC = () => {
               <span className="text-xs font-mono text-tarmac-grey-300">
                 ADMIN: {user?.name || 'Administrator'} ({user?.email})
               </span>
-              <span className="text-xs font-mono text-boarding-amber font-semibold hidden sm:inline">
-                • ARCHITECT: AKSHAY
-              </span>
             </div>
             <h1 className="font-display font-bold text-2xl sm:text-4xl text-white">
               GlobeTrotter Platform Analytics

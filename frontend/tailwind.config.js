@@ -71,11 +71,12 @@ export default {
           700: '#9B1C1C',
         },
         'parchment': '#F4F0E8',
+        'cream-sand': '#F5EFE6',
       },
       fontFamily: {
-        display: ['"Space Grotesk"', 'sans-serif'],
-        sans: ['"Inter"', 'sans-serif'],
-        mono: ['"IBM Plex Mono"', '"JetBrains Mono"', 'monospace'],
+        display: ['"Plus Jakarta Sans"', '"Inter"', 'system-ui', 'sans-serif'],
+        sans: ['"Inter"', '"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+        mono: ['"JetBrains Mono"', '"IBM Plex Mono"', 'monospace'],
       },
       backgroundImage: {
         'grid-pattern': "radial-gradient(#6B7280 1px, transparent 1px)",

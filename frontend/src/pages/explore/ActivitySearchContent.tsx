@@ -8,6 +8,7 @@ import { useUIStore } from '../../stores/uiStore';
 import { ActivityCard } from '../../components/trip/ActivityCard';
 import { Activity } from '../../lib/types';
 import { getTodayDateString } from '../../lib/dateUtils';
+import { formatCurrency } from '../../lib/currencyUtils';
 
 interface ActivitySearchContentProps {
   tripId?: string | null;
@@ -19,9 +20,9 @@ interface ActivitySearchContentProps {
 
 const CATEGORIES = [
   { id: 'all', label: 'All Categories' },
-  { id: 'culture', label: 'Culture & Arts' },
-  { id: 'food', label: 'Food & Dining' },
-  { id: 'adventure', label: 'Adventure' },
+  { id: 'culture', label: 'Culture & Heritage' },
+  { id: 'food', label: 'Food & Culinary' },
+  { id: 'adventure', label: 'Adventure & Nature' },
   { id: 'sightseeing', label: 'Sightseeing' },
   { id: 'relaxation', label: 'Relaxation' },
 ];
@@ -37,7 +38,7 @@ export const ActivitySearchContent: React.FC<ActivitySearchContentProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedCityId, setSelectedCityId] = useState<string>('all');
-  const [maxCost, setMaxCost] = useState<number>(300);
+  const [maxCost, setMaxCost] = useState<number>(15000);
 
   const { data: cities = [] } = useQuery({
     queryKey: ['cities'],
@@ -66,7 +67,7 @@ export const ActivitySearchContent: React.FC<ActivitySearchContentProps> = ({
 
   const handleAddActivity = async (activity: Activity) => {
     if (!tripId || !stopId) {
-      showToast('Catalog View', `Viewed ${activity.name}`, 'info');
+      showToast('Experience Highlighted', `Selected ${activity.name}`, 'info');
       return;
     }
 
@@ -86,7 +87,7 @@ export const ActivitySearchContent: React.FC<ActivitySearchContentProps> = ({
         location: targetStop?.cityName || undefined,
       });
 
-      showToast('Activity Added', `"${activity.name}" added to stop!`, 'success');
+      showToast('Experience Added', `"${activity.name}" added to stop!`, 'success');
       if (onActivityAdded) onActivityAdded();
       if (onClose) onClose();
     } catch (err: any) {
@@ -112,15 +113,15 @@ export const ActivitySearchContent: React.FC<ActivitySearchContentProps> = ({
   return (
     <div className="space-y-6">
       {/* Search & Filter Strip */}
-      <div className="space-y-3 bg-white p-4 rounded-xl border border-tarmac-grey/20 shadow-xs">
+      <div className="space-y-3 bg-white p-4 rounded-2xl border border-tarmac-grey/20 shadow-xs">
         <div className="relative">
           <Search className="w-4 h-4 text-tarmac-grey absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
-            placeholder="Search tours, museum tickets, tastings, adventures..."
+            placeholder="Search tours, heritage passes, food walks, safaris..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 bg-runway-white border border-tarmac-grey/30 rounded-lg text-sm text-ink-navy focus:outline-none focus:ring-2 focus:ring-boarding-amber"
+            className="w-full pl-9 pr-4 py-2.5 bg-runway-white border border-tarmac-grey/30 rounded-xl text-sm text-ink-navy focus:outline-none focus:ring-2 focus:ring-boarding-amber font-sans"
           />
         </div>
 
@@ -131,9 +132,9 @@ export const ActivitySearchContent: React.FC<ActivitySearchContentProps> = ({
               key={cat.id}
               type="button"
               onClick={() => setSelectedCategory(cat.id)}
-              className={`px-3 py-1 rounded-md text-xs font-mono whitespace-nowrap transition-colors ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-sans whitespace-nowrap transition-colors ${
                 selectedCategory === cat.id
-                  ? 'bg-signal-teal text-white font-bold'
+                  ? 'bg-signal-teal text-white font-bold shadow-xs'
                   : 'bg-runway-white text-tarmac-grey hover:text-ink-navy border border-tarmac-grey/20'
               }`}
             >
@@ -145,15 +146,15 @@ export const ActivitySearchContent: React.FC<ActivitySearchContentProps> = ({
         {/* City Filter & Price Filter */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-tarmac-grey/15">
           <div>
-            <label className="block text-[11px] font-mono text-tarmac-grey mb-1">
+            <label className="block text-[11px] font-sans font-medium text-tarmac-grey mb-1">
               Filter by City:
             </label>
             <select
               value={selectedCityId}
               onChange={(e) => setSelectedCityId(e.target.value)}
-              className="w-full bg-runway-white border border-tarmac-grey/30 rounded-md px-3 py-1.5 text-xs text-ink-navy focus:outline-none focus:ring-1 focus:ring-boarding-amber font-sans"
+              className="w-full bg-runway-white border border-tarmac-grey/30 rounded-xl px-3 py-2 text-xs text-ink-navy focus:outline-none focus:ring-2 focus:ring-boarding-amber font-sans"
             >
-              <option value="all">All Global Cities</option>
+              <option value="all">All Destination Cities</option>
               {cities.map((city) => (
                 <option key={city.id} value={city.id}>
                   {city.name}, {city.country}
@@ -163,49 +164,52 @@ export const ActivitySearchContent: React.FC<ActivitySearchContentProps> = ({
           </div>
 
           <div>
-            <div className="flex justify-between text-[11px] font-mono text-tarmac-grey mb-1">
-              <span>Max Price:</span>
-              <strong className="text-ink-navy">${maxCost}</strong>
+            <div className="flex justify-between text-[11px] font-sans text-tarmac-grey mb-1">
+              <span>Max Budget:</span>
+              <strong className="text-ink-navy font-bold">{formatCurrency(maxCost)}</strong>
             </div>
             <input
               type="range"
-              min={10}
-              max={300}
-              step={10}
+              min={500}
+              max={20000}
+              step={500}
               value={maxCost}
               onChange={(e) => setMaxCost(Number(e.target.value))}
-              className="w-full accent-boarding-amber"
+              className="w-full accent-boarding-amber cursor-pointer"
             />
           </div>
         </div>
       </div>
 
-      {/* Activities Result Grid */}
+      {/* Activity Results Grid */}
       {isLoading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="h-44 bg-white rounded-xl animate-pulse border border-tarmac-grey/20" />
-          <div className="h-44 bg-white rounded-xl animate-pulse border border-tarmac-grey/20" />
+          <div className="h-56 bg-white rounded-2xl animate-pulse border border-tarmac-grey/20" />
+          <div className="h-56 bg-white rounded-2xl animate-pulse border border-tarmac-grey/20" />
         </div>
       ) : activities.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {activities.map((act) => (
-            <ActivityCard
-              key={act.id}
-              activity={act}
-              isAdded={addedActivityIds.has(act.id)}
-              onAdd={handleAddActivity}
-              onRemove={handleRemoveActivity}
-            />
-          ))}
+          {activities.map((activity) => {
+            const isAdded = addedActivityIds.has(activity.id);
+            return (
+              <ActivityCard
+                key={activity.id}
+                activity={activity}
+                isAdded={isAdded}
+                onAdd={handleAddActivity}
+                onRemove={handleRemoveActivity}
+              />
+            );
+          })}
         </div>
       ) : (
-        <div className="text-center py-10 bg-white rounded-xl border border-dashed border-tarmac-grey/25 p-6">
+        <div className="text-center py-10 bg-white rounded-2xl border border-dashed border-tarmac-grey/25 p-6">
           <Compass className="w-8 h-8 text-tarmac-grey mx-auto mb-2 opacity-60" />
           <h4 className="font-display font-bold text-base text-ink-navy">
-            No Activities Matched
+            No Experiences Match
           </h4>
           <p className="text-xs text-tarmac-grey mt-1">
-            Try adjusting category filters or increasing the maximum price slider.
+            Try adjusting your budget slider or clearing category filters.
           </p>
         </div>
       )}

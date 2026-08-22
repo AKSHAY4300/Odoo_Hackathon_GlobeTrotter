@@ -10,13 +10,10 @@ import {
   Globe, 
   Menu, 
   X,
-  Sparkles,
-  Heart,
-  Code
+  Sparkles
 } from 'lucide-react';
 import { useAuthStore } from '../../stores/authStore';
 import { useTripDraftStore } from '../../stores/tripDraftStore';
-import { useUIStore } from '../../stores/uiStore';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import { ShareModal } from '../../components/trip/ShareModal';
@@ -27,7 +24,7 @@ import { ActivitySearchContent } from '../../pages/explore/ActivitySearchContent
 export const AppLayout: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { user, logout, switchRole } = useAuthStore();
+  const { user, logout } = useAuthStore();
   const { 
     isCityDrawerOpen, 
     closeCityDrawer, 
@@ -37,19 +34,9 @@ export const AppLayout: React.FC = () => {
     targetStopId,
     targetDate
   } = useTripDraftStore();
-  const { showToast } = useUIStore();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
-
-  const handleRoleToggle = async () => {
-    const nextRole = user?.role === 'admin' ? 'traveler' : 'admin';
-    await switchRole(nextRole);
-    showToast('Role Switched', `Active role set to ${nextRole.toUpperCase()}`, 'info');
-    if (nextRole === 'admin') {
-      navigate('/admin');
-    }
-  };
 
   const navLinks = [
     { label: 'Dashboard', path: '/', icon: <Compass className="w-4 h-4" /> },
@@ -96,7 +83,7 @@ export const AppLayout: React.FC = () => {
                     <Link
                       key={link.path}
                       to={link.path}
-                      className={`px-3 py-1.5 rounded-md text-xs font-semibold flex items-center gap-1.5 transition-colors ${
+                      className={`px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 transition-colors ${
                         isActive
                           ? 'bg-boarding-amber text-ink-navy shadow-xs font-bold'
                           : 'text-tarmac-grey-200 hover:text-white hover:bg-ink-navy-700'
@@ -120,18 +107,6 @@ export const AppLayout: React.FC = () => {
                   Plan a Voyage
                 </Button>
               </Link>
-
-              <button
-                type="button"
-                onClick={handleRoleToggle}
-                className="hidden lg:flex items-center gap-1.5 bg-ink-navy-900 border border-white/15 px-2.5 py-1 rounded text-[11px] font-mono text-tarmac-grey-300 hover:text-white hover:border-boarding-amber transition-colors"
-                title="Switch between Traveler & Administrator view"
-              >
-                <span>Role:</span>
-                <span className="font-bold text-boarding-amber uppercase">
-                  {user?.role || 'traveler'}
-                </span>
-              </button>
 
               <div className="relative">
                 <button
@@ -184,29 +159,12 @@ export const AppLayout: React.FC = () => {
                         <Link
                           to="/admin"
                           onClick={() => setUserDropdownOpen(false)}
-                          className="w-full px-4 py-2 text-xs hover:bg-runway-white flex items-center gap-2.5 text-ink-navy transition-colors"
+                          className="w-full px-4 py-2 text-xs hover:bg-runway-white flex items-center gap-2.5 text-ink-navy transition-colors border-t border-tarmac-grey/10"
                         >
                           <Shield className="w-4 h-4 text-boarding-amber" />
                           <span>Admin Telemetry Hub</span>
                         </Link>
                       )}
-
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setUserDropdownOpen(false);
-                          handleRoleToggle();
-                        }}
-                        className="w-full px-4 py-2 text-xs hover:bg-runway-white flex items-center gap-2.5 text-ink-navy border-t border-tarmac-grey/10 font-mono transition-colors"
-                      >
-                        <Shield className="w-4 h-4 text-tarmac-grey" />
-                        <span>Switch to {user?.role === 'admin' ? 'Traveler' : 'Admin'}</span>
-                      </button>
-
-                      <div className="px-4 py-2 bg-cream-sand/50 border-t border-tarmac-grey/10 text-[10px] font-mono text-tarmac-grey">
-                        <span>Developed with care by </span>
-                        <strong className="text-ink-navy font-bold">Akshay</strong>
-                      </div>
 
                       <button
                         type="button"
@@ -298,35 +256,19 @@ export const AppLayout: React.FC = () => {
         />
       </Drawer>
 
-      {/* Global Developer Branding & Footer */}
+      {/* Global Clean Footer */}
       <footer className="bg-white border-t border-tarmac-grey/15 py-8 text-xs text-tarmac-grey">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <img src="/logo.png" alt="GlobeTrotter" className="w-8 h-8 rounded-full object-contain shadow-xs" />
-              <div>
-                <span className="font-display font-bold text-ink-navy text-sm">GLOBETROTTER</span>
-                <span className="text-[11px] text-tarmac-grey font-mono block">Multi-City Travel Architecture & Itinerary Engine</span>
-              </div>
-            </div>
-
-            {/* Developer Akshay Branding Badge */}
-            <div className="flex items-center gap-2 bg-cream-sand px-4 py-2 rounded-full border border-tarmac-grey/20 text-xs shadow-xs">
-              <Code className="w-4 h-4 text-signal-teal" />
-              <span className="text-ink-navy font-medium">Designed & Built by</span>
-              <span className="font-display font-bold text-ink-navy bg-boarding-amber/40 px-2.5 py-0.5 rounded-full border border-boarding-amber/50">
-                Akshay
-              </span>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <img src="/logo.png" alt="GlobeTrotter" className="w-8 h-8 rounded-full object-contain shadow-xs" />
+            <div>
+              <span className="font-display font-bold text-ink-navy text-sm">GLOBETROTTER</span>
+              <span className="text-[11px] text-tarmac-grey font-mono block">Multi-City Travel Architecture & Itinerary Engine</span>
             </div>
           </div>
 
-          <div className="border-t border-tarmac-grey/10 pt-4 flex flex-col sm:flex-row items-center justify-between text-[11px] text-tarmac-grey/80 gap-2 font-mono">
-            <span className="flex items-center gap-1">
-              <span>Engineered with</span>
-              <Heart className="w-3 h-3 text-stamp-red fill-stamp-red" />
-              <span>for curious travelers, backpackers, and worldwide explorers.</span>
-            </span>
-            <span>Platform Architect & Developer: <strong className="text-ink-navy">Akshay</strong></span>
+          <div className="text-[11px] text-tarmac-grey/80 font-sans">
+            <span>© {new Date().getFullYear()} GlobeTrotter. All rights reserved.</span>
           </div>
         </div>
       </footer>
