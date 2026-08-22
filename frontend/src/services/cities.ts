@@ -1,32 +1,34 @@
 import { City } from '../lib/types';
-import { mockStore, delay } from './store';
+import { apiClient } from './apiClient';
 
 export const citiesService = {
   async getCities(): Promise<City[]> {
-    await delay(200);
-    const db = mockStore.getDB();
-    return db.cities;
+    const res = await apiClient.get<{ success: boolean; count: number; cities: City[] }>('/cities');
+    return res.cities || [];
   },
 
   async getCityById(id: string): Promise<City | null> {
-    await delay(150);
-    const db = mockStore.getDB();
-    return db.cities.find((c) => c.id === id) || null;
+    try {
+      const res = await apiClient.get<{ success: boolean; city: City }>(`/cities/${id}`);
+      return res.city || null;
+    } catch {
+      return null;
+    }
   },
 
-  async searchCities(query = '', region = 'All', maxCostIndex = 4): Promise<City[]> {
-    await delay(200);
-    const db = mockStore.getDB();
-    return db.cities.filter((city) => {
-      const matchesQuery = 
-        city.name.toLowerCase().includes(query.toLowerCase()) ||
-        city.country.toLowerCase().includes(query.toLowerCase()) ||
-        city.description.toLowerCase().includes(query.toLowerCase());
-      
-      const matchesRegion = region === 'All' || city.region === region;
-      const matchesCost = city.costIndex <= maxCostIndex;
+  async searchCities(
+    query = '', 
+    region = 'All', 
+    maxCostIndex = 4
+  ): Promise<City[]> {
+    const params: Record<string, any> = {};
+    if (query) params.search = query;
+    if (region && region !== 'All') params.region = region;
+    if (maxCostIndex) params.maxCostIndex = maxCostIndex;
 
-      return matchesQuery && matchesRegion && matchesCost;
+    const res = await apiClient.get<{ success: boolean; count: number; cities: City[] }>('/cities', {
+      params,
     });
+    return res.cities || [];
   },
 };

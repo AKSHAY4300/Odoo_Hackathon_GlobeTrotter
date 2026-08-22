@@ -1,23 +1,26 @@
 import { Activity } from '../lib/types';
-import { mockStore, delay } from './store';
+import { apiClient } from './apiClient';
 
 export const activitiesService = {
   async getActivities(): Promise<Activity[]> {
-    await delay(200);
-    const db = mockStore.getDB();
-    return db.activities;
+    const res = await apiClient.get<{ success: boolean; count: number; activities: Activity[] }>('/activities');
+    return res.activities || [];
   },
 
   async getActivityById(id: string): Promise<Activity | null> {
-    await delay(150);
-    const db = mockStore.getDB();
-    return db.activities.find((a) => a.id === id) || null;
+    try {
+      const res = await apiClient.get<{ success: boolean; activity: Activity }>(`/activities/${id}`);
+      return res.activity || null;
+    } catch {
+      return null;
+    }
   },
 
   async getActivitiesByCity(cityId: string): Promise<Activity[]> {
-    await delay(200);
-    const db = mockStore.getDB();
-    return db.activities.filter((a) => a.cityId === cityId);
+    const res = await apiClient.get<{ success: boolean; count: number; activities: Activity[] }>(
+      `/cities/${cityId}/activities`
+    );
+    return res.activities || [];
   },
 
   async searchActivities(
@@ -26,18 +29,15 @@ export const activitiesService = {
     cityId?: string, 
     maxCost = 500
   ): Promise<Activity[]> {
-    await delay(200);
-    const db = mockStore.getDB();
-    return db.activities.filter((act) => {
-      const matchesQuery = 
-        act.name.toLowerCase().includes(query.toLowerCase()) ||
-        act.description.toLowerCase().includes(query.toLowerCase());
-      
-      const matchesCategory = category === 'all' || act.category === category;
-      const matchesCity = !cityId || cityId === 'all' || act.cityId === cityId;
-      const matchesCost = act.cost <= maxCost;
+    const params: Record<string, any> = {};
+    if (query) params.search = query;
+    if (category && category !== 'all') params.category = category;
+    if (cityId && cityId !== 'all') params.cityId = cityId;
+    if (maxCost) params.maxCost = maxCost;
 
-      return matchesQuery && matchesCategory && matchesCity && matchesCost;
+    const res = await apiClient.get<{ success: boolean; count: number; activities: Activity[] }>('/activities', {
+      params,
     });
+    return res.activities || [];
   },
 };

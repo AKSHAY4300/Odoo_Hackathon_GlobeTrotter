@@ -1,11 +1,17 @@
 import { Trip, BudgetBreakdown, DailySpend } from '../lib/types';
 import { getDaysInRange } from '../lib/dateUtils';
-import { delay } from './store';
+import { apiClient } from './apiClient';
 
 export const budgetService = {
   async getBudgetBreakdown(trip: Trip): Promise<BudgetBreakdown> {
-    await delay(100);
-    return this.calculateBudgetSynchronous(trip);
+    try {
+      const res = await apiClient.get<{ success: boolean; breakdown: BudgetBreakdown }>(
+        `/trips/${trip.id}/budget`
+      );
+      return res.breakdown;
+    } catch {
+      return this.calculateBudgetSynchronous(trip);
+    }
   },
 
   calculateBudgetSynchronous(trip: Trip): BudgetBreakdown {
@@ -34,7 +40,7 @@ export const budgetService = {
       });
     });
 
-    trip.stops.forEach((stop) => {
+    (trip.stops || []).forEach((stop) => {
       const stopDays = getDaysInRange(stop.arrivalDate, stop.departureDate);
       const nights = Math.max(1, stopDays.length - 1);
       const perNightCost = stop.accommodationCostPerNight || 0;
@@ -58,7 +64,7 @@ export const budgetService = {
         }
       }
 
-      stop.activities.forEach((act) => {
+      (stop.activities || []).forEach((act) => {
         totalActivities += act.cost || 0;
         const targetDay = act.scheduledDate || stop.arrivalDate;
         if (dayMap.has(targetDay)) {

@@ -1,3 +1,4 @@
+export * from './apiClient';
 export * from './store';
 export * from './auth';
 export * from './trips';

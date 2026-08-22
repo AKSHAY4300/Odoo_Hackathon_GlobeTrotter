@@ -40,10 +40,25 @@ app.use((req, res) => {
 // Centralized Error Handler
 app.use(errorHandler);
 
+const City = require('./src/models/City');
+const seedDatabase = require('./src/seed/seed');
+
 // Start Server Function
 let server = null;
 async function startServer() {
   await connectDB();
+
+  // Auto-seed if database is freshly initialized and empty
+  try {
+    const cityCount = await City.countDocuments();
+    if (cityCount === 0) {
+      console.log('ℹ️  Empty database detected. Running automatic seeder...');
+      await seedDatabase(false);
+    }
+  } catch (err) {
+    console.warn('⚠️  Auto-seed skipped:', err.message);
+  }
+
   server = app.listen(PORT, () => {
     console.log(`\n======================================================`);
     console.log(`✈️  GlobeTrotter Backend API running on port: ${PORT}`);
