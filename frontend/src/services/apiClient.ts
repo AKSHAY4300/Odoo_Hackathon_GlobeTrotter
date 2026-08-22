@@ -1,4 +1,5 @@
 const TOKEN_KEY = 'globetrotter_token';
+const CACHE_PREFIX = 'gt_offline_cache_';
 
 export const API_BASE_URL: string =
   (typeof import.meta !== 'undefined' && (import.meta as any).env?.VITE_API_BASE_URL) ||
@@ -28,6 +29,31 @@ export function clearStoredToken(): void {
   }
 }
 
+function getOfflineCache<T>(cacheKey: string): T | null {
+  try {
+    const raw = localStorage.getItem(CACHE_PREFIX + cacheKey);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    return parsed?.data as T;
+  } catch {
+    return null;
+  }
+}
+
+function setOfflineCache(cacheKey: string, data: any): void {
+  try {
+    localStorage.setItem(
+      CACHE_PREFIX + cacheKey,
+      JSON.stringify({
+        savedAt: Date.now(),
+        data,
+      })
+    );
+  } catch {
+    // Quota exceeded or private mode, gracefully ignore
+  }
+}
+
 export interface RequestOptions extends RequestInit {
   params?: Record<string, string | number | boolean | undefined | null>;
   skipAuth?: boolean;
@@ -38,6 +64,7 @@ export async function apiRequest<T = any>(
   options: RequestOptions = {}
 ): Promise<T> {
   const { params, skipAuth = false, headers = {}, ...restOptions } = options;
+  const isGet = !options.method || options.method.toUpperCase() === 'GET';
 
   let url = `${API_BASE_URL}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
 
@@ -99,8 +126,22 @@ export async function apiRequest<T = any>(
       throw new Error(errorMessage);
     }
 
+    // Cache successful GET responses for offline resilience
+    if (isGet && responseData) {
+      setOfflineCache(url, responseData);
+    }
+
     return responseData as T;
   } catch (error: any) {
+    // Check if we can serve from offline cache
+    if (isGet) {
+      const cached = getOfflineCache<T>(url);
+      if (cached) {
+        console.info(`[Offline Cache Fallback] Served ${url} from local storage.`);
+        return cached;
+      }
+    }
+
     console.error(`API Error [${options.method || 'GET'} ${endpoint}]:`, error);
     throw error;
   }

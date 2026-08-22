@@ -10,10 +10,12 @@ import {
   Globe, 
   Menu, 
   X,
-  Sparkles
+  Sparkles,
+  WifiOff
 } from 'lucide-react';
 import { useAuthStore } from '../../stores/authStore';
 import { useTripDraftStore } from '../../stores/tripDraftStore';
+import { useOnlineStatus } from '../../lib/useOnlineStatus';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import { ShareModal } from '../../components/trip/ShareModal';
@@ -25,6 +27,7 @@ export const AppLayout: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, logout } = useAuthStore();
+  const isOnline = useOnlineStatus();
   const { 
     isCityDrawerOpen, 
     closeCityDrawer, 
@@ -55,6 +58,14 @@ export const AppLayout: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-runway-white flex flex-col selection:bg-boarding-amber selection:text-ink-navy">
+      {/* Offline Status Bar */}
+      {!isOnline && (
+        <div className="bg-boarding-amber text-ink-navy px-4 py-2 text-center text-xs font-medium flex items-center justify-center gap-2 border-b border-boarding-amber-600 shadow-sm animate-in slide-in-from-top">
+          <WifiOff className="w-4 h-4 text-ink-navy" />
+          <span>Offline Mode Active — Displaying locally cached itineraries and boarding passes.</span>
+        </div>
+      )}
+
       {/* Top Header / Departure Board Navigation Bar */}
       <header className="sticky top-0 z-40 bg-ink-navy text-runway-white border-b border-ink-navy-700 shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

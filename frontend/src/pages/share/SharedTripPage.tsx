@@ -6,7 +6,8 @@ import {
   Check, 
   Calendar, 
   Compass, 
-  Sparkles 
+  Sparkles,
+  Printer 
 } from 'lucide-react';
 import { tripsService } from '../../services/trips';
 import { useAuthStore } from '../../stores/authStore';
@@ -122,15 +123,27 @@ export const SharedTripPage: React.FC = () => {
               </Badge>
             </div>
 
-            <Button
-              size="sm"
-              variant={linkCopied ? 'secondary' : 'navy'}
-              leftIcon={linkCopied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-              onClick={handleCopyLink}
-              className="text-xs"
-            >
-              {linkCopied ? 'Link Copied' : 'Share Link'}
-            </Button>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => window.print()}
+                className="bg-ink-navy/80 hover:bg-ink-navy backdrop-blur-md text-white p-2 rounded-xl border border-white/15 transition-colors print:hidden flex items-center gap-1.5 text-xs font-sans px-3"
+                title="Print / Save Offline PDF"
+              >
+                <Printer className="w-3.5 h-3.5 text-boarding-amber" />
+                <span className="hidden sm:inline">Save PDF / Print</span>
+              </button>
+
+              <Button
+                size="sm"
+                variant={linkCopied ? 'secondary' : 'navy'}
+                leftIcon={linkCopied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                onClick={handleCopyLink}
+                className="text-xs print:hidden"
+              >
+                {linkCopied ? 'Link Copied' : 'Share Link'}
+              </Button>
+            </div>
           </div>
 
           {/* Title and Summary */}
