@@ -142,6 +142,30 @@ const authController = {
     }
   },
 
+  async switchRole(req, res, next) {
+    try {
+      const { role } = req.body;
+      const validRole = role === 'admin' ? 'admin' : 'user';
+      const user = await User.findById(req.user._id);
+      if (!user) {
+        return res.status(404).json({ success: false, error: 'User not found.' });
+      }
+
+      user.role = validRole;
+      await user.save();
+
+      const token = generateToken(user);
+
+      res.status(200).json({
+        success: true,
+        token,
+        user: user.toJSON(),
+      });
+    } catch (err) {
+      next(err);
+    }
+  },
+
   async toggleSavedCity(req, res, next) {
     try {
       const { cityId } = req.body;

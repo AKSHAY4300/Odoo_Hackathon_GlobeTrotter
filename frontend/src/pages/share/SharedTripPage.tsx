@@ -256,25 +256,34 @@ export const SharedTripPage: React.FC = () => {
       </div>
 
       {/* Share & Copy CTA Footer Strip */}
-      <div className="bg-ink-navy text-runway-white rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
-        <div className="space-y-1 text-center sm:text-left">
-          <h3 className="font-display font-bold text-xl text-white">
-            Ready to customize this route?
+      <div className="bg-ink-navy text-runway-white rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl relative overflow-hidden border border-ink-navy-700">
+        <div className="absolute right-0 top-0 w-80 h-80 bg-boarding-amber/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="relative z-10 space-y-1 text-center sm:text-left">
+          <div className="flex items-center justify-center sm:justify-start gap-2 text-xs font-mono text-boarding-amber">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>ITINERARY TEMPLATE READY</span>
+          </div>
+          <h3 className="font-display font-bold text-xl sm:text-2xl text-white">
+            Ready to personalize this route?
           </h3>
-          <p className="text-xs text-tarmac-grey-300">
-            Clone this itinerary into GlobeTrotter to adjust dates, replace activities, and recalculate budgets.
+          <p className="text-xs sm:text-sm text-tarmac-grey-300 max-w-lg">
+            Clone this curated voyage into your GlobeTrotter passport to customize stops, adjust travel dates, and track your daily budget.
           </p>
         </div>
 
-        <Button
-          size="lg"
-          variant="primary"
-          leftIcon={<Sparkles className="w-5 h-5" />}
-          onClick={handleCopyPass}
-          className="font-bold shrink-0 shadow-lg"
-        >
-          Clone This Voyage
-        </Button>
+        <div className="relative z-10 flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">
+          <Button
+            size="lg"
+            variant="primary"
+            leftIcon={<Sparkles className="w-5 h-5" />}
+            onClick={handleCopyPass}
+            isLoading={isCloning}
+            className="font-bold shadow-lg w-full sm:w-auto"
+          >
+            Clone Voyage to My Passport
+          </Button>
+        </div>
       </div>
     </div>
   );

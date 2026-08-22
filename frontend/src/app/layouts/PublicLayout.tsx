@@ -1,11 +1,12 @@
 import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
+import { Heart } from 'lucide-react';
 
 export const PublicLayout: React.FC = () => {
   return (
     <div className="min-h-screen bg-runway-white flex flex-col selection:bg-boarding-amber selection:text-ink-navy">
-      <header className="bg-ink-navy text-runway-white border-b border-ink-navy-700 py-3 px-4 sm:px-8 shadow-md">
+      <header className="bg-ink-navy text-runway-white border-b border-ink-navy-700 py-3 px-4 sm:px-8 shadow-md sticky top-0 z-40">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2.5 group">
             <img
@@ -18,7 +19,7 @@ export const PublicLayout: React.FC = () => {
                 GLOBE<span className="text-boarding-amber">TROTTER</span>
               </span>
               <span className="text-[8px] font-mono tracking-widest text-tarmac-grey-300 block -mt-1">
-                PUBLIC TRAVEL PASS
+                SHARED VOYAGE PASS
               </span>
             </div>
           </Link>
@@ -30,8 +31,8 @@ export const PublicLayout: React.FC = () => {
               </Button>
             </Link>
             <Link to="/signup">
-              <Button size="sm" variant="primary" className="text-xs">
-                Start Free Itinerary
+              <Button size="sm" variant="primary" className="text-xs font-bold">
+                Start Planning Free
               </Button>
             </Link>
           </div>
@@ -42,10 +43,17 @@ export const PublicLayout: React.FC = () => {
         <Outlet />
       </main>
 
-      <footer className="bg-white border-t border-tarmac-grey/15 py-6 text-center text-xs text-tarmac-grey">
-        <p>
-          Generated with <strong>GlobeTrotter</strong> — The travel document inspired multi-city planner.
-        </p>
+      <footer className="bg-white border-t border-tarmac-grey/15 py-8 text-center text-xs text-tarmac-grey">
+        <div className="max-w-6xl mx-auto px-4 space-y-2">
+          <p className="font-medium text-ink-navy">
+            Powered by <strong>GlobeTrotter</strong> — The interactive multi-city travel planning concierge.
+          </p>
+          <div className="flex items-center justify-center gap-1.5 text-[11px] font-mono text-tarmac-grey/80">
+            <span>Designed & Built with</span>
+            <Heart className="w-3 h-3 text-stamp-red fill-stamp-red" />
+            <span>by <strong className="text-ink-navy">Akshay</strong></span>
+          </div>
+        </div>
       </footer>
     </div>
   );

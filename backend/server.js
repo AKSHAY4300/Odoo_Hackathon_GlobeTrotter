@@ -12,7 +12,7 @@ const apiRoutes = require('./src/routes/index');
 const errorHandler = require('./src/middleware/error.middleware');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const DEFAULT_PORT = process.env.PORT || 5000;
 
 // Core Middleware
 app.use(cors({
@@ -45,7 +45,7 @@ const seedDatabase = require('./src/seed/seed');
 
 // Start Server Function
 let server = null;
-async function startServer() {
+async function startServer(port = DEFAULT_PORT) {
   await connectDB();
 
   // Auto-seed if database is freshly initialized and empty
@@ -59,14 +59,21 @@ async function startServer() {
     console.warn('⚠️  Auto-seed skipped:', err.message);
   }
 
-  server = app.listen(PORT, () => {
-    console.log(`\n======================================================`);
-    console.log(`✈️  GlobeTrotter Backend API running on port: ${PORT}`);
-    console.log(`📡 Health Check: http://localhost:${PORT}/api/health`);
-    console.log(`🌍 Mode: ${process.env.NODE_ENV || 'development'}`);
-    console.log(`======================================================\n`);
+  return new Promise((resolve, reject) => {
+    server = app.listen(port, () => {
+      const activePort = server.address().port;
+      console.log(`\n======================================================`);
+      console.log(`✈️  GlobeTrotter Backend API running on port: ${activePort}`);
+      console.log(`📡 Health Check: http://localhost:${activePort}/api/health`);
+      console.log(`🌍 Mode: ${process.env.NODE_ENV || 'development'}`);
+      console.log(`======================================================\n`);
+      resolve(server);
+    });
+
+    server.on('error', (err) => {
+      reject(err);
+    });
   });
-  return server;
 }
 
 if (require.main === module) {

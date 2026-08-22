@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { 
   Trash2, 
   Star, 
@@ -13,7 +13,6 @@ import { profileSchema, ProfileFormData } from '../../lib/schemas';
 import { useAuthStore } from '../../stores/authStore';
 import { useUIStore } from '../../stores/uiStore';
 import { citiesService } from '../../services/cities';
-import { mockStore } from '../../services/store';
 import { Input } from '../../components/ui/Input';
 import { Button } from '../../components/ui/Button';
 import { Modal } from '../../components/ui/Modal';
@@ -23,6 +22,7 @@ import { CityCard } from '../../components/trip/CityCard';
 export const ProfilePage: React.FC = () => {
   const { user, updateProfile, toggleSavedCity, logout } = useAuthStore();
   const { showToast } = useUIStore();
+  const queryClient = useQueryClient();
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
   const {
@@ -56,17 +56,17 @@ export const ProfilePage: React.FC = () => {
     }
   };
 
-  const handleResetData = () => {
-    if (window.confirm('Restore sample itineraries, destination cities, and curated experiences?')) {
-      mockStore.reset();
-      window.location.reload();
+  const handleResetData = async () => {
+    if (window.confirm('Sync latest destination cities, voyages, and curated experiences?')) {
+      await queryClient.invalidateQueries();
+      showToast('Data Synced', 'Portfolio cache successfully refreshed from live database.', 'success');
     }
   };
 
   const handleDeleteAccount = async () => {
-    showToast('Account Deleted', 'Traveler profile removed.', 'info');
+    showToast('Account Logged Out', 'Traveler session ended.', 'info');
     await logout();
-    window.location.href = '/signup';
+    window.location.href = '/login';
   };
 
   return (
@@ -99,34 +99,34 @@ export const ProfilePage: React.FC = () => {
               </Badge>
             </div>
 
-            <p className="text-xs font-mono text-tarmac-grey-300">
-              PASSPORT ID: {user?.id.toUpperCase()} • STAMPED SINCE 2026
-            </p>
-
-            <p className="text-xs sm:text-sm text-tarmac-grey-200 max-w-xl">
+            <p className="text-xs sm:text-sm text-tarmac-grey-300 max-w-xl">
               {user?.bio || 'Global explorer, architectural enthusiast, and route planner.'}
             </p>
 
-            {/* Passport Stamps Badges */}
-            <div className="pt-3 flex flex-wrap items-center justify-center sm:justify-start gap-3 text-xs font-mono">
-              <span className="passport-stamp text-[11px] bg-white/5">
-                18 COUNTRIES STAMPED
-              </span>
-              <span className="passport-stamp text-[11px] text-boarding-amber border-boarding-amber bg-white/5">
-                GOLD MEDALLION
-              </span>
+            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 pt-2 text-xs font-mono text-tarmac-grey-300">
+              <div>EMAIL: <span className="text-white">{user?.email}</span></div>
+              <div>CURRENCY: <span className="text-boarding-amber font-bold">{user?.preferredCurrency}</span></div>
+              <div>LANGUAGE: <span className="text-signal-teal font-bold">{user?.language}</span></div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Profile Form & Settings */}
-      <div className="bg-white rounded-2xl border border-tarmac-grey/25 p-6 sm:p-8 shadow-sm">
-        <h2 className="font-display font-bold text-xl text-ink-navy mb-4">
-          Traveler Credentials & Preferences
-        </h2>
+      {/* Edit Profile Form */}
+      <div className="bg-white rounded-2xl border border-tarmac-grey/25 shadow-md p-6 sm:p-8 space-y-6">
+        <div>
+          <span className="text-[11px] font-mono uppercase text-boarding-amber-700 bg-boarding-amber/20 px-2.5 py-0.5 rounded font-bold">
+            PASSPORT PARTICULARS
+          </span>
+          <h2 className="font-display font-bold text-2xl text-ink-navy mt-1">
+            Personal & Travel Preferences
+          </h2>
+          <p className="text-xs text-tarmac-grey mt-0.5">
+            Manage your traveler credentials and localized currency formats.
+          </p>
+        </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Input
               label="Full Name"
@@ -134,7 +134,6 @@ export const ProfilePage: React.FC = () => {
               error={errors.name?.message}
               monoLabel
             />
-
             <Input
               label="Email Address"
               type="email"
@@ -151,95 +150,110 @@ export const ProfilePage: React.FC = () => {
               </label>
               <select
                 {...register('preferredCurrency')}
-                className="w-full rounded-md border border-tarmac-grey/30 bg-white text-ink-navy text-sm p-2 focus:ring-2 focus:ring-boarding-amber focus:outline-none font-mono"
+                className="w-full rounded-md border border-tarmac-grey/30 bg-white text-ink-navy text-sm p-2.5 focus:ring-2 focus:ring-boarding-amber focus:outline-none"
               >
                 <option value="USD">USD ($) — United States Dollar</option>
                 <option value="EUR">EUR (€) — Euro</option>
                 <option value="GBP">GBP (£) — British Pound</option>
                 <option value="JPY">JPY (¥) — Japanese Yen</option>
                 <option value="INR">INR (₹) — Indian Rupee</option>
-                <option value="AUD">AUD (A$) — Australian Dollar</option>
+                <option value="AUD">AUD ($) — Australian Dollar</option>
               </select>
             </div>
 
-            <Input
-              label="Preferred Language"
-              {...register('language')}
-              error={errors.language?.message}
-              monoLabel
-            />
+            <div>
+              <label className="block text-xs font-mono uppercase tracking-wider text-[11px] font-semibold text-ink-navy/80 mb-1">
+                Interface Language
+              </label>
+              <select
+                {...register('language')}
+                className="w-full rounded-md border border-tarmac-grey/30 bg-white text-ink-navy text-sm p-2.5 focus:ring-2 focus:ring-boarding-amber focus:outline-none"
+              >
+                <option value="English (US)">English (US)</option>
+                <option value="English (UK)">English (UK)</option>
+                <option value="French">Français</option>
+                <option value="Spanish">Español</option>
+                <option value="German">Deutsch</option>
+                <option value="Japanese">日本語</option>
+              </select>
+            </div>
           </div>
 
           <div>
             <label className="block text-xs font-mono uppercase tracking-wider text-[11px] font-semibold text-ink-navy/80 mb-1">
-              Travel Bio & Notes
+              Traveler Bio & Exploration Motto
             </label>
             <textarea
               {...register('bio')}
               rows={3}
-              className="w-full rounded-md border border-tarmac-grey/30 bg-white text-ink-navy text-sm p-2.5 focus:ring-2 focus:ring-boarding-amber focus:outline-none"
-              placeholder="Tell other travelers about your preferred travel style..."
+              className="w-full rounded-md border border-tarmac-grey/30 bg-white text-ink-navy text-sm p-3 focus:ring-2 focus:ring-boarding-amber focus:outline-none placeholder-tarmac-grey/50"
+              placeholder="Tell fellow travelers about your travel style, dream destinations, or culinary obsessions..."
             />
-            {errors.bio && <p className="text-xs text-stamp-red mt-1">{errors.bio.message}</p>}
           </div>
 
-          <div className="pt-3 border-t border-tarmac-grey/15 flex items-center justify-end">
+          <div className="flex justify-end pt-4 border-t border-tarmac-grey/15">
             <Button
               type="submit"
+              size="lg"
               variant="primary"
               isLoading={isSubmitting}
-              className="font-bold"
+              className="font-bold shadow"
             >
-              Save Profile Updates
+              Save Passport Details
             </Button>
           </div>
         </form>
       </div>
 
-      {/* Saved Destinations / Bucket List */}
-      <div className="space-y-4">
+      {/* Saved Destination Cities Section */}
+      <div className="bg-white rounded-2xl border border-tarmac-grey/25 shadow-md p-6 sm:p-8 space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="font-display font-bold text-xl text-ink-navy flex items-center gap-2">
-              <Star className="w-5 h-5 text-boarding-amber fill-current" />
-              <span>Saved Bucket List Destinations ({savedCities.length})</span>
-            </h2>
+            <h3 className="font-display font-bold text-xl text-ink-navy flex items-center gap-2">
+              <Star className="w-5 h-5 text-boarding-amber fill-boarding-amber" />
+              <span>Saved Destination Watchlist</span>
+            </h3>
             <p className="text-xs text-tarmac-grey mt-0.5">
-              Destinations bookmarked for your next multi-city circuit.
+              Cities pinned for future multi-city expedition charters
             </p>
           </div>
+          <span className="text-xs font-mono font-bold text-ink-navy bg-cream-sand px-2.5 py-1 rounded">
+            {savedCities.length} Pinned
+          </span>
         </div>
 
         {savedCities.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-2">
             {savedCities.map((city) => (
               <CityCard
                 key={city.id}
                 city={city}
                 isSaved={true}
                 onToggleSave={toggleSavedCity}
-                actionLabel="Plan with this City"
+                actionLabel="Charter Route"
               />
             ))}
           </div>
         ) : (
-          <div className="p-8 text-center bg-white rounded-xl border border-dashed border-tarmac-grey/25 text-xs text-tarmac-grey">
-            No destinations saved yet. Explore cities to star favorites.
+          <div className="text-center py-8 border border-dashed border-tarmac-grey/25 rounded-xl p-4">
+            <p className="text-xs text-tarmac-grey">
+              No destination cities bookmarked yet. Explore destinations to save favorites.
+            </p>
           </div>
         )}
       </div>
 
-      {/* System Maintenance & Account Deletion */}
-      <div className="bg-white rounded-2xl border border-tarmac-grey/25 p-6 shadow-sm space-y-4">
-        <h3 className="font-display font-bold text-lg text-ink-navy">
-          Platform Storage & Danger Zone
-        </h3>
+      {/* Danger Zone */}
+      <div className="bg-white rounded-2xl border border-stamp-red/30 shadow-sm p-6 space-y-4">
+        <h4 className="font-display font-bold text-base text-stamp-red">
+          System Maintenance & Danger Zone
+        </h4>
 
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-2 border-t border-tarmac-grey/15">
           <div>
-            <h5 className="font-bold text-xs text-ink-navy font-mono">Restore Sample Itineraries</h5>
+            <h5 className="font-bold text-xs text-ink-navy font-mono">Sync Live Telemetry</h5>
             <p className="text-[11px] text-tarmac-grey">
-              Restores initial sample destination cities, popular routes, and curated experiences.
+              Refreshes destination cities, popular routes, and portfolio data from the live database.
             </p>
           </div>
           <Button
@@ -248,15 +262,15 @@ export const ProfilePage: React.FC = () => {
             leftIcon={<RefreshCw className="w-3.5 h-3.5 text-signal-teal" />}
             onClick={handleResetData}
           >
-            Restore Sample Data
+            Sync Database
           </Button>
         </div>
 
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-3 border-t border-tarmac-grey/15">
           <div>
-            <h5 className="font-bold text-xs text-stamp-red font-mono">Delete Traveler Account</h5>
+            <h5 className="font-bold text-xs text-stamp-red font-mono">Sign Out / End Session</h5>
             <p className="text-[11px] text-tarmac-grey">
-              Permanently revokes this passport and associated itineraries.
+              Safely logs out and clears stored session tokens.
             </p>
           </div>
           <Button
@@ -265,7 +279,7 @@ export const ProfilePage: React.FC = () => {
             leftIcon={<Trash2 className="w-3.5 h-3.5" />}
             onClick={() => setDeleteModalOpen(true)}
           >
-            Delete Passport
+            Sign Out
           </Button>
         </div>
       </div>
@@ -274,14 +288,14 @@ export const ProfilePage: React.FC = () => {
       <Modal
         isOpen={deleteModalOpen}
         onClose={() => setDeleteModalOpen(false)}
-        title="Revoke & Delete Passport"
-        subtitle="This action cannot be undone"
+        title="Sign Out of Passport"
+        subtitle="End your current session"
         maxWidth="sm"
       >
         <div className="space-y-4">
           <div className="p-3 bg-stamp-red/10 border border-stamp-red/30 rounded-lg flex items-start gap-2.5 text-xs text-stamp-red">
             <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
-            <span>Are you sure you want to permanently delete your traveler account and all planned voyages?</span>
+            <span>Are you sure you want to end your active session and sign out?</span>
           </div>
 
           <div className="flex items-center justify-end gap-2 pt-2">
@@ -289,7 +303,7 @@ export const ProfilePage: React.FC = () => {
               Cancel
             </Button>
             <Button size="sm" variant="danger" onClick={handleDeleteAccount}>
-              Confirm Delete
+              Confirm Sign Out
             </Button>
           </div>
         </div>

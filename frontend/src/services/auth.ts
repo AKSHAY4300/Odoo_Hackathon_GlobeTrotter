@@ -66,8 +66,15 @@ export const authService = {
   },
 
   async switchRole(role: UserRole): Promise<User> {
-    const currentUser = await this.getCurrentUser();
-    if (!currentUser) throw new Error('User not authenticated');
-    return { ...currentUser, role };
+    const backendRole = role === 'admin' ? 'admin' : 'user';
+    const res = await apiClient.post<{ success: boolean; token?: string; user: User }>('/auth/role', {
+      role: backendRole,
+    });
+
+    if (res.token) {
+      setStoredToken(res.token);
+    }
+
+    return res.user;
   },
 };

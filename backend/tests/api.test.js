@@ -72,8 +72,8 @@ async function runTests() {
     // 1. Seed database first
     await seedDatabase();
 
-    // 2. Start server
-    server = await startServer();
+    // 2. Start server on dynamic ephemeral port
+    server = await startServer(0);
     const port = server.address().port;
     baseUrl = `http://localhost:${port}`;
 

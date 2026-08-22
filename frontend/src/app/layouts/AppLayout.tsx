@@ -10,7 +10,9 @@ import {
   Globe, 
   Menu, 
   X,
-  Sparkles
+  Sparkles,
+  Heart,
+  Code
 } from 'lucide-react';
 import { useAuthStore } from '../../stores/authStore';
 import { useTripDraftStore } from '../../stores/tripDraftStore';
@@ -51,9 +53,9 @@ export const AppLayout: React.FC = () => {
 
   const navLinks = [
     { label: 'Dashboard', path: '/', icon: <Compass className="w-4 h-4" /> },
-    { label: 'My Trips', path: '/trips', icon: <Map className="w-4 h-4" /> },
-    { label: 'Cities', path: '/explore/cities', icon: <Globe className="w-4 h-4" /> },
-    { label: 'Activities', path: '/explore/activities', icon: <Sparkles className="w-4 h-4" /> },
+    { label: 'My Voyages', path: '/trips', icon: <Map className="w-4 h-4" /> },
+    { label: 'Destinations', path: '/explore/cities', icon: <Globe className="w-4 h-4" /> },
+    { label: 'Experiences', path: '/explore/activities', icon: <Sparkles className="w-4 h-4" /> },
   ];
 
   if (user?.role === 'admin') {
@@ -82,7 +84,7 @@ export const AppLayout: React.FC = () => {
                     GLOBE<span className="text-boarding-amber">TROTTER</span>
                   </span>
                   <span className="text-[9px] font-mono tracking-widest text-tarmac-grey-300 block -mt-1">
-                    ITINERARY SYSTEM
+                    TRAVEL CONCIERGE
                   </span>
                 </div>
               </Link>
@@ -115,7 +117,7 @@ export const AppLayout: React.FC = () => {
                   variant="primary"
                   leftIcon={<Plus className="w-4 h-4" />}
                 >
-                  Plan New Trip
+                  Plan a Voyage
                 </Button>
               </Link>
 
@@ -123,7 +125,7 @@ export const AppLayout: React.FC = () => {
                 type="button"
                 onClick={handleRoleToggle}
                 className="hidden lg:flex items-center gap-1.5 bg-ink-navy-900 border border-white/15 px-2.5 py-1 rounded text-[11px] font-mono text-tarmac-grey-300 hover:text-white hover:border-boarding-amber transition-colors"
-                title="Toggle between Traveler and Admin view"
+                title="Switch between Traveler & Administrator view"
               >
                 <span>Role:</span>
                 <span className="font-bold text-boarding-amber uppercase">
@@ -151,12 +153,12 @@ export const AppLayout: React.FC = () => {
                       className="fixed inset-0 z-20"
                       onClick={() => setUserDropdownOpen(false)}
                     />
-                    <div className="absolute right-0 top-11 w-56 bg-white border border-tarmac-grey/20 rounded-xl shadow-2xl py-2 z-30 text-ink-navy animate-in fade-in zoom-in-95 duration-150">
+                    <div className="absolute right-0 top-11 w-64 bg-white border border-tarmac-grey/20 rounded-2xl shadow-2xl py-2 z-30 text-ink-navy animate-in fade-in zoom-in-95 duration-150">
                       <div className="px-4 py-2 border-b border-tarmac-grey/15">
                         <p className="font-bold text-xs truncate text-ink-navy">{user?.name}</p>
                         <p className="text-[11px] font-mono text-tarmac-grey truncate">{user?.email}</p>
                         <Badge variant="amber" size="sm" className="mt-1.5">
-                          {user?.role?.toUpperCase()}
+                          {user?.role?.toUpperCase()} PASS
                         </Badge>
                       </div>
 
@@ -166,7 +168,7 @@ export const AppLayout: React.FC = () => {
                         className="w-full px-4 py-2 text-xs hover:bg-runway-white flex items-center gap-2.5 text-ink-navy transition-colors"
                       >
                         <User className="w-4 h-4 text-signal-teal" />
-                        <span>Traveler Profile & Settings</span>
+                        <span>Traveler Passport & Settings</span>
                       </Link>
 
                       <Link
@@ -185,7 +187,7 @@ export const AppLayout: React.FC = () => {
                           className="w-full px-4 py-2 text-xs hover:bg-runway-white flex items-center gap-2.5 text-ink-navy transition-colors"
                         >
                           <Shield className="w-4 h-4 text-boarding-amber" />
-                          <span>Admin Analytics Hub</span>
+                          <span>Admin Telemetry Hub</span>
                         </Link>
                       )}
 
@@ -200,6 +202,11 @@ export const AppLayout: React.FC = () => {
                         <Shield className="w-4 h-4 text-tarmac-grey" />
                         <span>Switch to {user?.role === 'admin' ? 'Traveler' : 'Admin'}</span>
                       </button>
+
+                      <div className="px-4 py-2 bg-cream-sand/50 border-t border-tarmac-grey/10 text-[10px] font-mono text-tarmac-grey">
+                        <span>Developed with care by </span>
+                        <strong className="text-ink-navy font-bold">Akshay</strong>
+                      </div>
 
                       <button
                         type="button"
@@ -255,7 +262,7 @@ export const AppLayout: React.FC = () => {
                 className="w-full flex items-center justify-center gap-2 bg-boarding-amber text-ink-navy font-semibold px-4 py-2.5 rounded-md text-sm shadow"
               >
                 <Plus className="w-4 h-4" />
-                <span>Plan New Trip</span>
+                <span>Plan a Voyage</span>
               </Link>
             </div>
           </div>
@@ -271,8 +278,8 @@ export const AppLayout: React.FC = () => {
       <Drawer
         isOpen={isCityDrawerOpen}
         onClose={closeCityDrawer}
-        title="Explore Destinations"
-        subtitle="Select a city stop to add to your itinerary"
+        title="Explore Global Destinations"
+        subtitle="Choose a breathtaking city stop to add to your journey"
       >
         <CitySearchContent tripId={activeTripId} onClose={closeCityDrawer} />
       </Drawer>
@@ -280,8 +287,8 @@ export const AppLayout: React.FC = () => {
       <Drawer
         isOpen={isActivityDrawerOpen}
         onClose={closeActivityDrawer}
-        title="Explore Activities & Experiences"
-        subtitle="Attach tours, culture passes, and dining to this stop"
+        title="Curated Experiences & Tours"
+        subtitle="Add guided excursions, cultural sights, and culinary spots"
       >
         <ActivitySearchContent 
           tripId={activeTripId} 
@@ -291,16 +298,36 @@ export const AppLayout: React.FC = () => {
         />
       </Drawer>
 
-      <footer className="bg-white border-t border-tarmac-grey/15 py-6 text-center text-xs text-tarmac-grey">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-boarding-amber" />
-            <span className="font-mono text-ink-navy font-semibold">GLOBETROTTER V1.0</span>
-            <span>— Production Multi-City Travel Planner</span>
+      {/* Global Developer Branding & Footer */}
+      <footer className="bg-white border-t border-tarmac-grey/15 py-8 text-xs text-tarmac-grey">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <img src="/logo.png" alt="GlobeTrotter" className="w-8 h-8 rounded-full object-contain shadow-xs" />
+              <div>
+                <span className="font-display font-bold text-ink-navy text-sm">GLOBETROTTER</span>
+                <span className="text-[11px] text-tarmac-grey font-mono block">Multi-City Travel Architecture & Itinerary Engine</span>
+              </div>
+            </div>
+
+            {/* Developer Akshay Branding Badge */}
+            <div className="flex items-center gap-2 bg-cream-sand px-4 py-2 rounded-full border border-tarmac-grey/20 text-xs shadow-xs">
+              <Code className="w-4 h-4 text-signal-teal" />
+              <span className="text-ink-navy font-medium">Designed & Built by</span>
+              <span className="font-display font-bold text-ink-navy bg-boarding-amber/40 px-2.5 py-0.5 rounded-full border border-boarding-amber/50">
+                Akshay
+              </span>
+            </div>
           </div>
-          <span className="font-mono text-[11px] text-tarmac-grey">
-            Smart Multi-City Routing & Travel Itinerary Engine
-          </span>
+
+          <div className="border-t border-tarmac-grey/10 pt-4 flex flex-col sm:flex-row items-center justify-between text-[11px] text-tarmac-grey/80 gap-2 font-mono">
+            <span className="flex items-center gap-1">
+              <span>Engineered with</span>
+              <Heart className="w-3 h-3 text-stamp-red fill-stamp-red" />
+              <span>for curious travelers, backpackers, and worldwide explorers.</span>
+            </span>
+            <span>Platform Architect & Developer: <strong className="text-ink-navy">Akshay</strong></span>
+          </div>
         </div>
       </footer>
     </div>
